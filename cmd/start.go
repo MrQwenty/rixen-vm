@@ -7,10 +7,11 @@ import (
 	"os/exec"
 	"path/filepath"
 
+	"runtime"
+
 	"github.com/rixen/rx/internal/config"
 	"github.com/spf13/cobra"
 )
-
 
 var startCmd = &cobra.Command{
 	Use:   "start [vm-name]",
@@ -63,7 +64,12 @@ var startCmd = &cobra.Command{
 		// Costruisci gli argomenti QEMU
 		qemuArgs := []string{
 			"-name", config.Name,
-			"-cpu", "host",
+			"-cpu", func() string {
+				if runtime.GOOS == "darwin" {
+					return "max"
+				}
+				return "host"
+			}(),
 			"-smp", fmt.Sprintf("%d", config.CPUCount),
 			"-m", fmt.Sprintf("%d", config.RAMSize),
 			"-hda", config.DiskPath,
@@ -107,4 +113,3 @@ var startCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(startCmd)
 }
-
