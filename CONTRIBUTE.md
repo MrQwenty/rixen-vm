@@ -85,4 +85,4 @@ By contributing, you agree that your contributions will be licensed under the [M
 Thanks for helping make Rixen better!  
 Feel free to [open an issue](https://github.com/valance-dev/rixen/issues) or ping us with questions.
 
-— Team Valance
+— MrQwenty
